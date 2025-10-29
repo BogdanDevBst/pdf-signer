@@ -11,8 +11,8 @@ export class MockSigningServer {
 
     // Get the first page to add signature
     const pages = pdfDoc.getPages();
-    const firstPage = pages[0];
-    const { width } = firstPage.getSize();
+    const lastPage = pages[pages.length - 1];
+    const { width } = lastPage.getSize();
 
     // Embed font
     const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
@@ -26,7 +26,7 @@ export class MockSigningServer {
     const y = margin;
 
     // Draw signature background
-    firstPage.drawRectangle({
+    lastPage.drawRectangle({
       x,
       y,
       width: boxWidth,
@@ -37,7 +37,7 @@ export class MockSigningServer {
     });
 
     // Add "DIGITALLY SIGNED" text
-    firstPage.drawText('DIGITALLY SIGNED', {
+    lastPage.drawText('DIGITALLY SIGNED', {
       x: x + 10,
       y: y + boxHeight - 25,
       size: 12,
@@ -52,7 +52,7 @@ export class MockSigningServer {
       day: 'numeric',
     });
 
-    firstPage.drawText(`Date: ${signatureDate}`, {
+    lastPage.drawText(`Date: ${signatureDate}`, {
       x: x + 10,
       y: y + boxHeight - 45,
       size: 9,
@@ -60,7 +60,7 @@ export class MockSigningServer {
       color: rgb(0.3, 0.3, 0.3),
     });
 
-    firstPage.drawText('Authorized Signatory', {
+    lastPage.drawText('Authorized Signatory', {
       x: x + 10,
       y: y + boxHeight - 60,
       size: 9,
@@ -70,7 +70,7 @@ export class MockSigningServer {
 
     // Add signature ID
     const signatureId = this.generateSignatureId();
-    firstPage.drawText(`ID: ${signatureId}`, {
+    lastPage.drawText(`ID: ${signatureId}`, {
       x: x + 10,
       y: y + 10,
       size: 7,
