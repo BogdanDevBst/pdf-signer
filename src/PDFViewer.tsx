@@ -78,7 +78,6 @@ export const PDFViewer: React.FC<PDFViewerProps> = ({ file, onBack }) => {
 
   return (
     <div className="w-full max-w-5xl mx-auto">
-      {/* Header */}
       <div className="bg-white rounded-2xl shadow-xl p-6 mb-6 border border-gray-100">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-4 flex-1 min-w-0">
@@ -103,27 +102,6 @@ export const PDFViewer: React.FC<PDFViewerProps> = ({ file, onBack }) => {
                 Back
               </span>
             </button>
-            <div className="min-w-0 flex-1">
-              <h2 className="text-lg sm:text-xl font-bold text-gray-900 truncate flex items-center gap-2">
-                <svg
-                  className="w-6 h-6 text-green-600 shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                {file.name}
-              </h2>
-              <p className="text-sm text-green-600 font-medium mt-1">
-                ✓ Successfully signed
-              </p>
-            </div>
           </div>
           <button
             onClick={downloadPDF}
@@ -149,7 +127,6 @@ export const PDFViewer: React.FC<PDFViewerProps> = ({ file, onBack }) => {
         </div>
       </div>
 
-      {/* PDF Display */}
       <div
         id="pdf-container"
         className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 mb-6 border border-gray-100"
@@ -229,10 +206,9 @@ export const PDFViewer: React.FC<PDFViewerProps> = ({ file, onBack }) => {
         )}
       </div>
 
-      {/* Navigation Controls */}
       {numPages > 0 && !error && (
         <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
-          <div className="flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-center justify-evenly gap-4">
             <button
               onClick={goToPrevPage}
               disabled={pageNumber <= 1}
@@ -240,7 +216,7 @@ export const PDFViewer: React.FC<PDFViewerProps> = ({ file, onBack }) => {
             >
               <span className="flex items-center gap-2">
                 <svg
-                  className="w-5 h-5"
+                  className="w-3 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -256,10 +232,10 @@ export const PDFViewer: React.FC<PDFViewerProps> = ({ file, onBack }) => {
               </span>
             </button>
 
-            <div className="flex items-center gap-3">
-              <div className="text-center bg-linear-to-r from-gray-50 to-gray-100 px-6 py-3 rounded-xl border border-gray-200">
+            <div className="flex items-center">
+              <div className="text-center bg-linear-to-r from-gray-50 to-gray-100 px-5 py-2 rounded-xl border border-gray-200">
                 <p className="text-sm text-gray-600 font-medium">Page</p>
-                <p className="text-xl font-bold text-gray-900">
+                <p className="text-base font-bold text-gray-900">
                   {pageNumber} <span className="text-gray-400">/</span>{" "}
                   {numPages}
                 </p>
@@ -274,7 +250,7 @@ export const PDFViewer: React.FC<PDFViewerProps> = ({ file, onBack }) => {
               <span className="flex items-center gap-2">
                 Next
                 <svg
-                  className="w-5 h-5"
+                  className="w-3 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

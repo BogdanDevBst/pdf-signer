@@ -7,13 +7,10 @@ export const Processing: React.FC<ProcessingProps> = ({ fileName }) => {
     <div className="w-full max-w-3xl mx-auto">
       <div className="bg-white rounded-3xl shadow-2xl p-12 sm:p-16 border border-gray-100">
         <div className="flex flex-col items-center text-center">
-          {/* Animated Icon */}
           <div className="relative w-32 h-32 mb-8">
-            {/* Outer spinning ring */}
             <div className="absolute inset-0 border-4 border-gray-200 rounded-full"></div>
             <div className="absolute inset-0 border-4 border-transparent border-t-indigo-600 border-r-blue-600 rounded-full animate-spin"></div>
 
-            {/* Middle pulsing ring */}
             <div
               className="absolute inset-3 border-4 border-transparent border-t-blue-500 border-l-cyan-500 rounded-full animate-spin"
               style={{
@@ -22,7 +19,6 @@ export const Processing: React.FC<ProcessingProps> = ({ fileName }) => {
               }}
             ></div>
 
-            {/* Document icon in center */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-16 h-16 bg-linear-to-br from-indigo-600 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
                 <svg
@@ -70,9 +66,7 @@ export const Processing: React.FC<ProcessingProps> = ({ fileName }) => {
             </p>
           </div>
 
-          {/* Progress Steps */}
           <div className="w-full max-w-md space-y-4">
-            {/* Step 1 - Complete */}
             <div className="flex items-center gap-4 p-4 bg-linear-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200">
               <div className="w-10 h-10 rounded-full bg-linear-to-br from-emerald-500 to-green-600 flex items-center justify-center shrink-0 shadow-lg">
                 <svg
@@ -96,7 +90,6 @@ export const Processing: React.FC<ProcessingProps> = ({ fileName }) => {
               </div>
             </div>
 
-            {/* Step 2 - In Progress */}
             <div className="flex items-center gap-4 p-4 bg-linear-to-r from-blue-50 to-indigo-50 rounded-xl border-2 border-blue-300 shadow-lg">
               <div className="w-10 h-10 rounded-full bg-linear-to-br from-indigo-600 to-blue-600 flex items-center justify-center shrink-0 shadow-lg animate-pulse">
                 <div className="w-3 h-3 bg-white rounded-full"></div>
@@ -132,7 +125,6 @@ export const Processing: React.FC<ProcessingProps> = ({ fileName }) => {
               </div>
             </div>
 
-            {/* Step 3 - Pending */}
             <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
               <div className="w-10 h-10 rounded-full bg-linear-to-br from-gray-200 to-gray-300 flex items-center justify-center shrink-0">
                 <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
@@ -148,7 +140,6 @@ export const Processing: React.FC<ProcessingProps> = ({ fileName }) => {
             </div>
           </div>
 
-          {/* Info Badge */}
           <div className="mt-10 inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-gray-50 to-gray-100 rounded-full border border-gray-200">
             <svg
               className="w-5 h-5 text-gray-600"

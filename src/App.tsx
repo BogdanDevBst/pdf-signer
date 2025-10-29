@@ -79,7 +79,6 @@ function App() {
         )}
       </div>
 
-      {/* Footer */}
       <footer className="mt-16 text-center">
         <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg border border-gray-200">
           <div className="w-8 h-8 bg-linear-to-br from-indigo-600 to-blue-600 rounded-full flex items-center justify-center">

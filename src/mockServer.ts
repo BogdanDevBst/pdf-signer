@@ -1,14 +1,6 @@
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
-/**
- * Mock server API that simulates signing a PDF document
- * In a real application, this would be an actual backend endpoint
- */
 export class MockSigningServer {
-  /**
-   * Simulates sending a PDF to a server for signing
-   * Adds a digital signature stamp to the PDF and returns the signed version
-   */
   static async signPDF(file: File): Promise<File> {
     // Simulate network delay
     await this.delay(2000);
@@ -100,16 +92,12 @@ export class MockSigningServer {
     return signedFile;
   }
 
-  /**
-   * Generates a mock signature ID
-   */
   private static generateSignatureId(): string {
     return `SIG-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
   }
 
-  /**
-   * Simulates network delay
-   */
+    // Simulates network delay
+   
   private static delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
