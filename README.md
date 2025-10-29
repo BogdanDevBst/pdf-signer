@@ -61,7 +61,7 @@ The development server includes:
 
 1. **Upload Phase**: Users can upload PDF files either by clicking the upload area or using drag-and-drop functionality. The application validates that the file is a PDF and under 10MB.
 
-2. **Processing Phase**: The uploaded PDF is sent to a mock signing server (simulated locally using pdf-lib). The server adds a digital signature stamp to the first page with the current date and a unique signature ID.
+2. **Processing Phase**: The uploaded PDF is sent to a mock signing server (simulated locally using pdf-lib). The server adds a digital signature stamp to the last page with the current date and a unique signature ID.
 
 3. **Viewing Phase**: The signed PDF is displayed using react-pdf, which renders the PDF in the browser. Users can navigate between pages and download the signed document.
 
