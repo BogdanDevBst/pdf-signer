@@ -5,12 +5,17 @@ import type { AppStage } from "@/types/pdf.types";
 import { signPDF } from "@/services/signingService";
 
 export function usePDFSigner() {
+    // State machine for the application flow: upload -> processing -> viewing
     const [stage, setStage] = useState<AppStage>("upload");
     const [originalFile, setOriginalFile] = useState<File | null>(null);
     const [signedFile, setSignedFile] = useState<File | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [signAllPages, setSignAllPages] = useState<boolean>(false);
 
+    /**
+     * Orchestrates the file upload and signing process.
+     * Starts the processing stage and calls the backend signing service.
+     */
     const handleFileSelect = useCallback(async (file: File) => {
         setOriginalFile(file);
         setError(null);

@@ -13,10 +13,11 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     const [isDragging, setIsDragging] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
+    // Drag and Drop event handlers to provide visual feedback and capture files
     const handleDragEnter = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         e.stopPropagation();
-        setIsDragging(true);
+        setIsDragging(true); // Update state to show "Release to Upload" UI
     };
 
     const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
@@ -43,12 +44,16 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         if (files && files[0]) handleFile(files[0]);
     };
 
+    /**
+     * Common file handling logic for both input change and drag-and-drop.
+     * Enforces PDF type and a 10MB size limit.
+     */
     const handleFile = (file: File) => {
         if (file.type !== "application/pdf") {
             alert("Please upload a PDF file");
             return;
         }
-        const maxSize = 10 * 1024 * 1024;
+        const maxSize = 10 * 1024 * 1024; // 10MB in bytes
         if (file.size > maxSize) {
             alert("File size must be less than 10MB");
             return;

@@ -79,7 +79,11 @@ export const PDFViewer: React.FC<PDFViewerProps> = ({ file, onBack }) => {
                 </div>
             </div>
 
-            {/* PDF Container */}
+            {/* 
+                PDF Container: 
+                The 'pdf-container' ID is critical as it's used by the usePDFViewer hook 
+                 to calculate the appropriate width for the PDF pages.
+            */}
             <div
                 id="pdf-container"
                 className="bg-white rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6 border border-gray-100 overflow-hidden"

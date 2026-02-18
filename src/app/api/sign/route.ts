@@ -53,17 +53,19 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         const pagesToSign = signAllPages ? pages : [pages[pages.length - 1]];
 
         // Apply signature to selected pages
+        // Note: pdf-lib uses a coordinate system where (0,0) is the BOTTOM-LEFT corner
         for (const page of pagesToSign) {
             const { width } = page.getSize();
 
-            // Signature box dimensions
+            // Signature box dimensions and positioning
+            // We place the signature in the bottom-right corner
             const boxWidth = 220;
             const boxHeight = 90;
             const margin = 20;
             const x = width - boxWidth - margin;
-            const y = margin;
+            const y = margin; // margin from the bottom
 
-            // Draw signature background
+            // Draw signature background (light blue tinted rectangle)
             page.drawRectangle({
                 x,
                 y,
@@ -74,7 +76,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
                 color: rgb(0.95, 0.97, 1),
             });
 
-            // "DIGITALLY SIGNED" header
+            // "DIGITALLY SIGNED" header in bold blue
             page.drawText("DIGITALLY SIGNED", {
                 x: x + 10,
                 y: y + boxHeight - 22,
@@ -83,7 +85,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
                 color: rgb(0.2, 0.4, 0.8),
             });
 
-            // Divider line
+            // Divider line for visual separation
             page.drawLine({
                 start: { x: x + 10, y: y + boxHeight - 28 },
                 end: { x: x + boxWidth - 10, y: y + boxHeight - 28 },
@@ -91,7 +93,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
                 color: rgb(0.2, 0.4, 0.8),
             });
 
-            // Signature date
+            // Signature date line
             page.drawText(`Date: ${signatureDate}`, {
                 x: x + 10,
                 y: y + boxHeight - 44,
@@ -100,7 +102,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
                 color: rgb(0.3, 0.3, 0.3),
             });
 
-            // Signatory
+            // Signatory title
             page.drawText("Authorized Signatory", {
                 x: x + 10,
                 y: y + boxHeight - 58,
@@ -109,7 +111,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
                 color: rgb(0.3, 0.3, 0.3),
             });
 
-            // Signature ID
+            // Unique tracking ID for the signature operation
             page.drawText(`ID: ${signatureId}`, {
                 x: x + 10,
                 y: y + 10,
@@ -119,16 +121,16 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
             });
         }
 
-        // Save the signed PDF
+        // Save the modified PDF back to bytes
         const signedPdfBytes = await pdfDoc.save();
-        // Convert Uint8Array to Buffer for NextResponse compatibility
+        // Convert Uint8Array to Buffer for compatibility with Next.js Response body
         const signedBuffer = Buffer.from(signedPdfBytes);
 
         return new NextResponse(signedBuffer, {
             status: 200,
             headers: {
                 "Content-Type": "application/pdf",
-                "Content-Disposition": "inline",
+                "Content-Disposition": "inline", // Display in browser if possible
             },
         });
     } catch (error) {
@@ -140,6 +142,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
 }
 
+/**
+ * Generates a unique, human-readable signature ID for tracking.
+ * Format: SIG-[Timestamp]-[RandomStr]
+ */
 function generateSignatureId(): string {
     return `SIG-${Date.now()}-${Math.random()
         .toString(36)

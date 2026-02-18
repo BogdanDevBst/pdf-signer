@@ -10,7 +10,8 @@ export function usePDFViewer(file: File) {
     const [error, setError] = useState<string | null>(null);
     const [fileUrl, setFileUrl] = useState<string>("");
 
-    // Create object URL for the file
+    // Create object URL for the file to be used as a source for the PDF viewer.
+    // We must revoke the URL when the component unmounts or the file changes to prevent memory leaks.
     useEffect(() => {
         const url = URL.createObjectURL(file);
         setFileUrl(url);
@@ -19,17 +20,21 @@ export function usePDFViewer(file: File) {
         };
     }, [file]);
 
-    // Responsive page width based on container
+    // Responsive page width logic:
+    // Calculates the available width in the #pdf-container and adjusts the PDF page width.
+    // This allows the viewer to be responsive without complex CSS hacks.
     useEffect(() => {
         const updateWidth = () => {
             const container = document.getElementById("pdf-container");
             if (container) {
+                // Use 95% of the container width to provide some internal padding,
+                // capped at 800px for better legibility on ultra-wide screens.
                 const width = Math.min(container.offsetWidth * 0.95, 800);
                 setPageWidth(width);
             }
         };
         updateWidth();
-        window.addEventListener("resize", updateWidth);
+        window.addEventListener("resize", updateWidth); // Listen for window resize to update width
         return () => window.removeEventListener("resize", updateWidth);
     }, []);
 
